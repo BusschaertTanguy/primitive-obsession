@@ -1,6 +1,4 @@
-﻿using Domain.Orders.ValueObjects;
-
-namespace Domain.Products.Entities;
+﻿namespace Domain.Products.Entities;
 
 public sealed class Product
 {
