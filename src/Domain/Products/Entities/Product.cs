@@ -1,4 +1,6 @@
-﻿namespace Domain.Products.Entities;
+﻿using Domain.Common.Guards;
+
+namespace Domain.Products.Entities;
 
 public sealed class Product
 {
@@ -7,9 +9,9 @@ public sealed class Product
 
     public Product(Guid id, string name, decimal price)
     {
-        if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
-        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
-        if (price <= 0) throw new InvalidOperationException("Price has to be greater then 0.");
+        Guards.NotEmpty(id, nameof(id));
+        Guards.NotEmpty(name, nameof(name));
+        Guards.GreaterThanZero(price, nameof(price));
 
         Id = id;
         _name = name;
@@ -20,14 +22,14 @@ public sealed class Product
 
     public void ChangeName(string name)
     {
-        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+        Guards.NotEmpty(name, nameof(name));
 
         _name = name;
     }
 
     public void ChangePrice(decimal price)
     {
-        if (price <= 0) throw new InvalidOperationException("Price has to be greater then 0.");
+        Guards.GreaterThanZero(price, nameof(price));
 
         _price = price;
     }

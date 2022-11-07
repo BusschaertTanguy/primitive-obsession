@@ -1,11 +1,13 @@
-﻿namespace Domain.Orders.ValueObjects;
+﻿using Domain.Common.Guards;
+
+namespace Domain.Orders.ValueObjects;
 
 public sealed record OrderItem
 {
     public OrderItem(Guid productId, int amount)
     {
-        if (productId == Guid.Empty) throw new ArgumentNullException(nameof(productId));
-        if (amount <= 0) throw new InvalidOperationException("Amount has to be greater then 0.");
+        Guards.NotEmpty(productId, nameof(productId));
+        Guards.GreaterThanZero(amount, nameof(amount));
 
         ProductId = productId;
         Amount = amount;
@@ -16,10 +18,10 @@ public sealed record OrderItem
 
     public OrderItem Mutate(int amount)
     {
-        if (amount == 0) throw new InvalidOperationException("Mutation amount can't be 0.");
+        Guards.OtherThanZero(amount, nameof(amount));
 
         var newAmount = Amount + amount;
-        if (newAmount <= 0) throw new InvalidOperationException("Product amount must be greater then 0");
+        Guards.GreaterThanZero(newAmount, nameof(newAmount));
 
         return this with { Amount = newAmount };
     }

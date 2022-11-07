@@ -1,4 +1,5 @@
-﻿using Domain.Orders.ValueObjects;
+﻿using Domain.Common.Guards;
+using Domain.Orders.ValueObjects;
 
 namespace Domain.Orders.Entities;
 
@@ -23,7 +24,7 @@ public sealed class Order
 
     public void MutateProductAmount(Guid productId, int amount)
     {
-        if (productId == Guid.Empty) throw new ArgumentNullException(nameof(productId));
+        Guards.NotEmpty(productId, nameof(productId));
 
         var oldItem = _items.FirstOrDefault(item => item.ProductId == productId);
         if (oldItem == null) throw new InvalidOperationException("Product not in order");
