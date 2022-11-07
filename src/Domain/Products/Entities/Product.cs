@@ -1,36 +1,28 @@
-﻿using Domain.Common.Guards;
+﻿using Domain.Products.ValueObjects;
 
 namespace Domain.Products.Entities;
 
 public sealed class Product
 {
-    private string _name;
-    private decimal _price;
+    private ProductName _name;
+    private ProductPrice _price;
 
-    public Product(Guid id, string name, decimal price)
+    public Product(ProductId id, ProductName name, ProductPrice price)
     {
-        Guards.NotEmpty(id, nameof(id));
-        Guards.NotEmpty(name, nameof(name));
-        Guards.GreaterThanZero(price, nameof(price));
-
         Id = id;
         _name = name;
         _price = price;
     }
 
-    public Guid Id { get; }
+    public ProductId Id { get; }
 
-    public void ChangeName(string name)
+    public void ChangeName(ProductName name)
     {
-        Guards.NotEmpty(name, nameof(name));
-
         _name = name;
     }
 
-    public void ChangePrice(decimal price)
+    public void ChangePrice(ProductPrice price)
     {
-        Guards.GreaterThanZero(price, nameof(price));
-
         _price = price;
     }
 }

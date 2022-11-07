@@ -21,7 +21,10 @@ public static class ChangeProductPrice
             var (productId, price) = command;
 
             var product = await _productRepository.GetById(productId);
-            product.ChangePrice(price);
+
+            product.ChangePrice(
+                new(price)
+            );
 
             await _productRepository.Save(product);
         }

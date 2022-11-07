@@ -21,7 +21,11 @@ public static class MutateProductAmount
             var (orderId, productId, amount) = command;
 
             var order = await _orderRepository.GetById(orderId);
-            order.MutateProductAmount(productId, amount);
+
+            order.MutateProductAmount(
+                new(productId),
+                new(amount)
+            );
 
             await _orderRepository.Save(order);
         }

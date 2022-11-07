@@ -19,7 +19,9 @@ public static class AddOrder
 
         public Task Handle(Command command)
         {
-            var order = new Order(command.Id);
+            var order = new Order(
+                new(command.Id)
+            );
 
             return _orderRepository.Save(order);
         }

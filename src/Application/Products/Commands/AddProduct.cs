@@ -21,7 +21,11 @@ public static class AddProduct
         {
             var (id, name, price) = command;
 
-            var product = new Product(id, name, price);
+            var product = new Product(
+                new(id),
+                new(name),
+                new(price)
+            );
 
             return _productRepository.Save(product);
         }

@@ -22,7 +22,9 @@ public static class ChangeProductName
 
             var product = await _productRepository.GetById(productId);
 
-            product.ChangeName(name);
+            product.ChangeName(
+                new(name)
+            );
 
             await _productRepository.Save(product);
         }

@@ -1,28 +1,12 @@
-﻿using Domain.Common.Guards;
+﻿using Domain.Products.ValueObjects;
 
 namespace Domain.Orders.ValueObjects;
 
-public sealed record OrderItem
+public sealed record OrderItem(ProductId ProductId, OrderItemAmount Amount)
 {
-    public OrderItem(Guid productId, int amount)
+    public OrderItem Mutate(OrderItemMutationAmount mutationAmount)
     {
-        Guards.NotEmpty(productId, nameof(productId));
-        Guards.GreaterThanZero(amount, nameof(amount));
-
-        ProductId = productId;
-        Amount = amount;
-    }
-
-    public Guid ProductId { get; }
-    public int Amount { get; private init; }
-
-    public OrderItem Mutate(int amount)
-    {
-        Guards.OtherThanZero(amount, nameof(amount));
-
-        var newAmount = Amount + amount;
-        Guards.GreaterThanZero(newAmount, nameof(newAmount));
-
+        var newAmount = Amount.Mutate(mutationAmount);
         return this with { Amount = newAmount };
     }
 }

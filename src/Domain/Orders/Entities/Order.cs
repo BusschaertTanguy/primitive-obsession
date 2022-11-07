@@ -1,20 +1,20 @@
-﻿using Domain.Common.Guards;
-using Domain.Orders.ValueObjects;
+﻿using Domain.Orders.ValueObjects;
+using Domain.Products.ValueObjects;
 
 namespace Domain.Orders.Entities;
 
 public sealed class Order
 {
-    private readonly Guid _id;
+    private readonly OrderId _id;
     private readonly List<OrderItem> _items;
 
-    public Order(Guid id)
+    public Order(OrderId id)
     {
         _id = id;
         _items = new();
     }
 
-    public void AddItem(Guid productId, int amount)
+    public void AddItem(ProductId productId, OrderItemAmount amount)
     {
         if (_items.Any(item => item.ProductId == productId)) throw new InvalidOperationException("Product already in order.");
 
@@ -22,10 +22,8 @@ public sealed class Order
         _items.Add(item);
     }
 
-    public void MutateProductAmount(Guid productId, int amount)
+    public void MutateProductAmount(ProductId productId, OrderItemMutationAmount amount)
     {
-        Guards.NotEmpty(productId, nameof(productId));
-
         var oldItem = _items.FirstOrDefault(item => item.ProductId == productId);
         if (oldItem == null) throw new InvalidOperationException("Product not in order");
 

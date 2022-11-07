@@ -26,7 +26,10 @@ public static class AddOrderItem
             var product = await _productRepository.GetById(productId);
             var order = await _orderRepository.GetById(orderId);
 
-            order.AddItem(product.Id, amount);
+            order.AddItem(
+                product.Id,
+                new(amount)
+            );
 
             await _orderRepository.Save(order);
         }
