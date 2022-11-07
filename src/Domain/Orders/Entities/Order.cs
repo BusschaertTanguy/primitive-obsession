@@ -1,4 +1,5 @@
-﻿using Domain.Orders.ValueObjects;
+﻿using Domain.Orders.Mementos;
+using Domain.Orders.ValueObjects;
 using Domain.Products.ValueObjects;
 
 namespace Domain.Orders.Entities;
@@ -31,5 +32,26 @@ public sealed class Order
 
         _items.Remove(oldItem);
         _items.Add(newItem);
+    }
+
+    internal static Order FromMemento(OrderMemento memento)
+    {
+        var order = new Order(new(memento.Id));
+
+        order._items.AddRange(memento.Items.Select(item => new OrderItem(
+            new(item.ProductId),
+            new(item.Amount)
+        )));
+
+        return order;
+    }
+
+    internal OrderMemento ToMemento()
+    {
+        var memento = new OrderMemento(_id.Value);
+
+        memento.Items.AddRange(_items.Select(item => new OrderItemMemento(item.ProductId.Value, item.Amount.Value)));
+
+        return memento;
     }
 }
