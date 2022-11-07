@@ -1,6 +1,6 @@
 ﻿namespace Domain.Products.ValueObjects;
 
-public record ProductName
+public sealed record ProductName
 {
     public const string EmptyMessage = "Product name can't be empty.";
 

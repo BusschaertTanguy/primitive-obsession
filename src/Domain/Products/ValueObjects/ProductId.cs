@@ -1,6 +1,6 @@
 ﻿namespace Domain.Products.ValueObjects;
 
-public record ProductId
+public sealed record ProductId
 {
     public const string EmptyMessage = "Product id can't be empty.";
 

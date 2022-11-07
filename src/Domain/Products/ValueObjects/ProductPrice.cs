@@ -1,6 +1,6 @@
 ﻿namespace Domain.Products.ValueObjects;
 
-public record ProductPrice
+public sealed record ProductPrice
 {
     public const string GreaterThanZeroMessage = "Product price has to be greater then 0.";
 

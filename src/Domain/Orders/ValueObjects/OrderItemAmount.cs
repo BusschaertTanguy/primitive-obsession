@@ -1,6 +1,6 @@
 ﻿namespace Domain.Orders.ValueObjects;
 
-public record OrderItemAmount
+public sealed record OrderItemAmount
 {
     public const string GreaterThanZeroMessage = "Order item amount has to be greater then 0.";
 

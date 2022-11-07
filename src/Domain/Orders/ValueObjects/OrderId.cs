@@ -1,6 +1,6 @@
 ﻿namespace Domain.Orders.ValueObjects;
 
-public class OrderId
+public sealed class OrderId
 {
     public const string EmptyMessage = "Order id can't be empty.";
 

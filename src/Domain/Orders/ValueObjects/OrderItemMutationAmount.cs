@@ -1,6 +1,6 @@
 ﻿namespace Domain.Orders.ValueObjects;
 
-public class OrderItemMutationAmount
+public sealed class OrderItemMutationAmount
 {
     public const string OtherThanZero = "Order item mutation amount has to be other than 0.";
 
