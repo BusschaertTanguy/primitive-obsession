@@ -48,9 +48,15 @@ public sealed class Order
 
     internal OrderMemento ToMemento()
     {
-        var memento = new OrderMemento(_id.Value);
-
-        memento.Items.AddRange(_items.Select(item => new OrderItemMemento(item.ProductId.Value, item.Amount.Value)));
+        var memento = new OrderMemento
+        {
+            Id = _id.Value,
+            Items = _items.Select(item => new OrderItemMemento
+            {
+                ProductId = item.ProductId.Value,
+                Amount = item.Amount.Value
+            })
+        };
 
         return memento;
     }

@@ -2,12 +2,6 @@
 
 internal sealed class OrderMemento
 {
-    public OrderMemento(Guid id)
-    {
-        Id = id;
-        Items = new();
-    }
-
-    public Guid Id { get; }
-    public List<OrderItemMemento> Items { get; }
+    public required Guid Id { get; init; }
+    public required IEnumerable<OrderItemMemento> Items { get; init; }
 }
